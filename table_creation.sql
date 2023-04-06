@@ -4,7 +4,8 @@ id int primary key auto_increment,
 nom_entrepot varchar(30) not null,
 adresse varchar(255) not null,
 ville varchar(126) not null,
-pays varchar(50) not null
+pays varchar(50) not null,
+continent varchar(20) not null
 );
 
 

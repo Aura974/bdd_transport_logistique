@@ -1,11 +1,11 @@
 -- Ajoutez 5 entrepôts dans différentes villes et pays.
 insert into entrepots (nom_entrepot, adresse, ville, pays)
 	values
-		("ent_lux", "234 route Arlon", "Strassen", "Luxembourg"),
-        ("ent_pto", "555 rua du Bacalau", "Porto", "Portugal"),
-        ("ent_ans", "346 rue de Charlemagne", "Angers", "France"),
-        ("ent_ven", "1174 Ca' Foscari", "Venise", "Italie"),
-        ("ent_bak", "4658 Nakhon Sawhan Rd", "Bangkok", "Thaïlande");
+		("ent_lux", "234 route Arlon", "Strassen", "Luxembourg", "Europe"),
+        ("ent_pto", "555 rua du Bacalau", "Porto", "Portugal", "Europe"),
+        ("ent_ans", "346 rue de Charlemagne", "Angers", "France", "Europe"),
+        ("ent_ven", "1174 Ca' Foscari", "Venise", "Italie", "Europe"),
+        ("ent_bak", "4658 Nakhon Sawhan Rd", "Bangkok", "Thaïlande", "Asie");
 
 
 -- Ajoutez 10 expéditions différentes 

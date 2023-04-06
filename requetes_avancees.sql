@@ -56,3 +56,19 @@ FROM expeditions
 WHERE YEAR(date_expedition) = YEAR(now())
 GROUP BY mois_exp
 order by mois_exp asc;
+
+
+-- Affichez les entrepôts qui ont envoyé des expéditions au cours des 30 derniers jours.
+select nom_entrepot from entrepots ent
+inner join expeditions exp on exp.id_entrepot_source = ent.id
+where date_expedition > now() - interval 30 day
+group by nom_entrepot;
+
+
+-- Affichez les entrepôts qui ont reçu des expéditions au cours des 30 derniers jours.
+select nom_entrepot from entrepots ent
+inner join expeditions exp on exp.id_entrepot_destination = ent.id
+where date_livraison > now() - interval 30 day
+group by nom_entrepot;
+
+
