@@ -38,16 +38,16 @@ where statut = "livre";
 SELECT month(date_expedition) as mois_exp,
 case
 	when month(date_expedition) = 1 then "janvier"
-    WHEN month(date_expedition) = 2 THEN 'février'
-	WHEN month(date_expedition) = 3 THEN 'mars'
-	WHEN month(date_expedition) = 4 THEN 'avril'
-	WHEN month(date_expedition) = 5 THEN 'mai'
-	WHEN month(date_expedition) = 6 THEN 'juin'
-	WHEN month(date_expedition) = 7 THEN 'juillet'
-	WHEN month(date_expedition) = 8 THEN 'août'
-	WHEN month(date_expedition) = 9 THEN 'septembre'
-	WHEN month(date_expedition) = 10 THEN 'octobre'
-	WHEN month(date_expedition) = 11 THEN 'novembre'
+    WHEN month(date_expedition) = 2 THEN "février"
+	WHEN month(date_expedition) = 3 THEN "mars"
+	WHEN month(date_expedition) = 4 THEN "avril"
+	WHEN month(date_expedition) = 5 THEN "mai"
+	WHEN month(date_expedition) = 6 THEN "juin"
+	WHEN month(date_expedition) = 7 THEN "juillet"
+	WHEN month(date_expedition) = 8 THEN "août"
+	WHEN month(date_expedition) = 9 THEN "septembre"
+	WHEN month(date_expedition) = 10 THEN "octobre"
+	WHEN month(date_expedition) = 11 THEN "novembre"
 	ELSE 'décembre'
 end as mois,
 year(date_expedition),
@@ -70,5 +70,10 @@ select nom_entrepot from entrepots ent
 inner join expeditions exp on exp.id_entrepot_destination = ent.id
 where date_livraison > now() - interval 30 day
 group by nom_entrepot;
+
+
+-- Affichez les expéditions qui ont été livrées dans un délai de moins de 5 jours ouvrables.
+select id, date_expedition, date_livraison from expeditions
+where datediff(date_livraison, date_expedition) <= 7;
 
 
