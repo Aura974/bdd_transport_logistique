@@ -13,7 +13,8 @@ continent varchar(20) not null
 create table expeditions (
 id int primary key auto_increment,
 date_expedition date not null,
-date_livraison date,
+date_livraison_prevue date not null,
+date_livraison_reelle date,
 id_entrepot_source int not null,
 id_entrepot_destination int not null,
 poids decimal(5,1) not null,
