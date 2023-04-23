@@ -38,7 +38,7 @@ using transport.Data.Repository;
 
 //*ajouter une nouvel expedition
 //var repoExpeditions = new ExpeditionsRepository();
-//var expeditions = new Expeditions(new DateTime(2023-03-27), new DateTime(2023-03-30), new DateTime(2023-03-31), 1100.0, "livr�", 5, 1);
+//var expeditions = new Expeditions(new DateTime(2023, 03, 27), new DateTime(2023, 03, 30), new DateTime(2023, 03, 31), 1100.0, "livré", 5, 1);
 //repoExpeditions.Save(expeditions);
 
 //var listExpeditions = repoExpeditions.FindAll();
@@ -53,5 +53,18 @@ using transport.Data.Repository;
 //    Console.WriteLine(item.Pois);
 //    Console.WriteLine(item.Statut);
 //}
+
+//*update expedition id 23 dans la table expeditions
+//var repoExpeditions = new ExpeditionsRepository();
+//var expeditions = repoExpeditions.Find(24);
+//expeditions.DateLivraisonPrevue = new DateTime(2023, 03, 29);
+//repoExpeditions.Update(expeditions);
+
+//*delete expedition 22
+//var repoExpeditions = new ExpeditionsRepository();
+//var expeditions = repoExpeditions.Find(22);
+//repoExpeditions.Delete(new Expeditions(new DateTime(2023, 03, 27), new DateTime(2023, 03, 29), new DateTime(2023, 03, 31), 1100.0, "livré", 5, 1));
+
+
 
 
