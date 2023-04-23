@@ -24,7 +24,8 @@ namespace transport.Data.Repository
                         result.GetInt32("id_entrepot_destination"),
                         result.GetString("statut"),
                         result.GetInt32("id_entrepot_source"),
-                        result.GetInt32("pois"), result.GetInt32("id"));
+                        Convert.ToInt32(result.GetDecimal("poids")),
+                        result.GetInt32("id"));
                     list.Add(expeditions);
                 }
             }
@@ -38,6 +39,44 @@ namespace transport.Data.Repository
             }
             return list;
         }
+
+        public Expeditions? Find(int id)
+        {
+            MySqlConnection? connection = null;
+            try
+            {
+                connection = DBConnection.GetConnection();
+                connection.Open();
+
+                var request = new MySqlCommand("SELECT * FROM expeditions WHERE id=@id", connection);
+                request.Parameters.AddWithValue("@id", id);
+                var result = request.ExecuteReader();
+
+                if (result.Read())
+                {
+                    var expeditions = new Expeditions(
+                        result.GetDateTime("date_expedition"),
+                        result.GetDateTime("date_livraison_prevue"),
+                        result.GetDateTime("date_livraison_reelle"),
+                        result.GetDecimal("poids"),
+                        result.GetString("statut"),
+                        result.GetInt32("id_entrepot_source"),
+                        result.GetInt32("id_entrepot_destination"),
+                        result.GetInt32("id"));
+                            return expeditions;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("EntrepotsRepository error : " + ex.Message);
+            }
+            finally
+            {
+                connection?.Close();
+            }
+            return null;
+        }
+
         public void Save(Expeditions expeditions)
         {
             MySqlConnection? connection = null;
@@ -46,11 +85,11 @@ namespace transport.Data.Repository
                 connection = DBConnection.GetConnection();
                 connection.Open();
 
-                var request = new MySqlCommand("INSER INTO expeditions(date_expedition, date_livraison_prevue, date_livraison_reelle, pois, statut) VALUES (@dateexpedition, @datelivraisonprevue, @datelivraisonreelle, @pois, @statut)", connection);
+                var request = new MySqlCommand("INSERT INTO expeditions(date_expedition, date_livraison_prevue, date_livraison_reelle, poids, statut) VALUES (@dateexpedition, @datelivraisonprevue, @datelivraisonreelle, @poids, @statut)", connection);
                 request.Parameters.AddWithValue("@dateexpedition", expeditions.DateExpedition);
                 request.Parameters.AddWithValue("@datelivraisonprevue", expeditions.DateLivraisonPrevue);
                 request.Parameters.AddWithValue("@datelivraisonreelle", expeditions.DateLivraisonReelle);
-                request.Parameters.AddWithValue("@pois", expeditions.Pois);
+                request.Parameters.AddWithValue("@poids", expeditions.Poids);
                 request.Parameters.AddWithValue("@statut", expeditions.Statut);
 
                 request.ExecuteNonQuery();
@@ -73,11 +112,11 @@ namespace transport.Data.Repository
             {
                 connection = DBConnection.GetConnection();
                 connection.Open();
-                var request = new MySqlCommand("UPDATE expeditions SET date_expedition=@dateexpedition, date_livraison_prevue=@datelivraisonprevue, date_livraison_reelle=@datelivraisonreelle, pois=@pois, statut=@statut)", connection);
+                var request = new MySqlCommand("UPDATE expeditions SET date_expedition=@dateexpedition, date_livraison_prevue=@datelivraisonprevue, date_livraison_reelle=@datelivraisonreelle, poids=@poids, statut=@statut)", connection);
                 request.Parameters.AddWithValue("@dateexpedition", expeditions.DateExpedition);
                 request.Parameters.AddWithValue("@datelivraisonprevue", expeditions.DateLivraisonPrevue);
                 request.Parameters.AddWithValue("@datelivraisonreelle", expeditions.DateLivraisonReelle);
-                request.Parameters.AddWithValue("@pois", expeditions.Pois);
+                request.Parameters.AddWithValue("@poids", expeditions.Poids);
                 request.Parameters.AddWithValue("@statut", expeditions.Statut);
                 request.Parameters.AddWithValue("@id", expeditions.Id);
             }
@@ -117,13 +156,13 @@ namespace transport.Data.Repository
             return false;
 
         }
-        private Expeditions sqlToDog(MySqlDataReader result)
+        private Expeditions sqlToExpeditions(MySqlDataReader result)
         {
             return new Expeditions(
                 result.GetDateTime("date_expedition"), 
                 result.GetDateTime("date_livraison_prevue"), 
                 result.GetDateTime("date_livraison_reelle"), 
-                result.GetInt32("pois"), 
+                result.GetDecimal("poids"), 
                 result.GetString("statut"), 
                 result.GetInt32("id_entrepot_source"), 
                 result.GetInt32("id_entrepot_destination"), 
