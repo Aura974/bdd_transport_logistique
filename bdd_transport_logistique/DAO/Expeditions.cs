@@ -2,7 +2,7 @@ namespace transport.Data.Entity
 {
     class Expeditions
     {
-        public Expeditions(DateTime? dateExpedition, DateTime? dateLivraisonPrevue, DateTime? dateLivraisonReelle, double? pois, string? statut, int? idEntrepotSource = null, int? idEntrepotDestination = null, int? id = null)
+        public Expeditions(DateTime? dateExpedition, DateTime? dateLivraisonPrevue, DateTime? dateLivraisonReelle, decimal? poids, string? statut, int? idEntrepotSource = null, int? idEntrepotDestination = null, int? id = null)
         {
             Id = id;
             DateExpedition = dateExpedition;
@@ -10,7 +10,7 @@ namespace transport.Data.Entity
             DateLivraisonReelle = dateLivraisonReelle;
             IdEntrepotSource = idEntrepotSource;
             IdEntrepotDestination= idEntrepotDestination;
-            Pois = pois;
+            Poids = poids;
             Statut = statut;
             
         }
@@ -20,7 +20,7 @@ namespace transport.Data.Entity
         public  DateTime? DateLivraisonReelle { get; set; }
         public int? IdEntrepotSource { get; set; }
         public int? IdEntrepotDestination { get; set;}
-        public double? Pois { get; set;}
+        public decimal? Poids { get; set;}
         public string? Statut { get; set;}
     }
 }
